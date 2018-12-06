@@ -23,7 +23,7 @@ describe Sinderella do
   describe '.get(id)' do
     context 'before midnight (before time expired)' do
       it 'returns the transformed data' do
-        Sinderella.stub(:check)
+        allow(Sinderella).to receive_messages(check: true)
         create_new_instance
         expect(subject.get(@id)).to eq({ :key => 'VALUE' })
       end
@@ -41,7 +41,7 @@ describe Sinderella do
   describe '.midnight(id)' do
     context 'before midnight (before time expired)' do
       it 'restores the data to its original state' do
-        Sinderella.stub(:check)
+        allow(Sinderella).to receive_messages(check: true)
         create_new_instance
         subject.midnight(@id)
         expect(subject.get(@id)).to eq({ :key => 'value' })
